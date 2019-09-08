@@ -13,7 +13,7 @@ mutable struct Medium{T}
 end
 
 "Returns the volume fraction of the specie."
-volume_fraction(sp::Specie) = sp.r^2*sp.num_density*pi
+volume_fraction(sp::Specie; dim = 2) = (dim == 2 ? 1 : 4/3) * sp.r^dim * pi * sp.num_density
 
 "Returns pressure wave speed, when β is the adiabatic bulk modulus/"
 p_speed(ρ,β,μ) = sqrt(β+4*μ/3)/sqrt(ρ)
@@ -36,6 +36,3 @@ end
 
 Medium(;ρ=1.0, c=1.0+0.0im) = Medium{typeof(ρ)}(ρ,Complex{typeof(ρ)}(c))
 # Medium(;ρ::T = 1.0, c::Union{R,Complex{T}} = 1.0+0.0im) = Medium(ρ,Complex{T}(c))
-
-Nn(n::Int,x::Union{T,Complex{T}},y::Union{T,Complex{T}}) where T<:AbstractFloat =
-    x*diffhankelh1(n,x)*besselj(n,y) - y*hankelh1(n,x)*diffbesselj(n,y)

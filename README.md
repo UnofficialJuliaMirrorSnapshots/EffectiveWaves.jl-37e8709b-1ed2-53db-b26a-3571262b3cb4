@@ -1,3 +1,5 @@
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://arturgower.github.io/EffectiveWaves.jl/stable)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://arturgower.github.io/EffectiveWaves.jl/dev)
 [![Build Status](https://travis-ci.org/arturgower/EffectiveWaves.jl.svg?branch=master)](https://travis-ci.org/arturgower/EffectiveWaves.jl)
 [![Coverage Status](https://coveralls.io/repos/github/arturgower/EffectiveWaves.jl/badge.svg?branch=master)](https://coveralls.io/github/arturgower/EffectiveWaves.jl?branch=master)
 [![codecov.io](http://codecov.io/github/arturgower/EffectiveWaves.jl/coverage.svg?branch=master)](http://codecov.io/github/arturgower/EffectiveWaves.jl?branch=master)
@@ -7,7 +9,7 @@
 A Julia package for calculating, processing and plotting waves travelling in heterogeneous materials. The focus is on calculating the ensemble averaged waves, i.e. the statistical moments, of the waves.
 You can run Julia on [JuliaBox](https://www.juliabox.com/) in your browser without installation.
 
-At present, the packages calculates effective wavenumbers, wave transimission and wave reflection from random particulate materials in two-dimensions, see [arXiv preprint](https://arxiv.org/abs/1712.05427) for details on the mathematics, or [these notes](theory/MultispeciesWaves.pdf) for the formulas.
+At present, the packages calculates effective wavenumbers, wave transimission and wave reflection from random particulate materials in two-dimensions, see [arXiv preprint](https://arxiv.org/abs/1712.05427) for details on the mathematics, or [these notes](docs/src/theory/WavesInMultiSpecies.pdf) for the formulas.
 
 ## Get started
 Type into Julia:
@@ -19,9 +21,12 @@ using EffectiveWaves
 ```
 
 ## Simple example
-Effective wavenumbers for two species randomly (uniformly) distributed in Glycerol, complete code in [examples/demo.jl](examples/demo.jl).
+Effective wavenumbers for two species randomly (uniformly) distributed in Glycerol.
 ```julia
 #where: ρ = density, r = radius, c = wavespeed, and volfrac = volume fraction
+
+const WaterDistilled= Medium(ρ=0.998*1000, c = 1496.0)
+const Glycerol      = Medium(ρ=1.26*1000,  c = 1904.0)
 
 species = [
     Specie(ρ=WaterDistilled.ρ,r=30.e-6, c=WaterDistilled.c, volfrac=0.1),
@@ -41,10 +46,10 @@ wavenumbers = wavenumber_low_volfrac(ωs, background, species)
 speeds = ωs./real(wavenumbers)
 attenuations = imag(wavenumbers)
 ```
-For a list of possible materials go to [examples/materials.jl](examples/materials.jl).
+For a list of possible materials go to [src/materials.jl](src/materials.jl).
 
 ## More examples
-For more examples and details go to [examples/](examples/).
+For more examples and details go to [docs/src/examples/](docs/src/examples/).
 
 ## Acknowledgements and contributing
 This library was originally written by [Artur L Gower](https://arturgower.github.io/).
