@@ -24,11 +24,10 @@ makedocs(
 )
 
 deploydocs(
-    forcepush = true,
+    repo = "github.com/arturgower/EffectiveWaves.jl.git",
+    # forcepush = true,
     branch = "gh-pages",
     latest = "master",
-    julia = "1.0",
-    osname = "linux",
     target = "build",
-    repo = "github.com/arturgower/EffectiveWaves.jl.git"
+    versions = ["stable" => "v^", "v#.#", devurl => devurl]
 )
